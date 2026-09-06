@@ -63,6 +63,7 @@ public class LoginServlet extends HttpServlet {
                 try (ResultSet result = statement.executeQuery()) {
 
                     if (!result.next()) {
+
                         showMessage(
                                 response,
                                 "Login Failed",
@@ -78,12 +79,11 @@ public class LoginServlet extends HttpServlet {
                     if (passwordHash != null
                             && BCrypt.checkpw(password, passwordHash)) {
 
-                        showMessage(
-                                response,
-                                "Login Successful",
-                                "Welcome back to DharshinMart.",
-                                true
-                        );
+                        /*
+                         * Login successful.
+                         * Go directly to the Products page.
+                         */
+                        response.sendRedirect("products.jsp");
 
                     } else {
 
@@ -149,7 +149,11 @@ public class LoginServlet extends HttpServlet {
                 "<title>DharshinMart | " + title + "</title>" +
 
                 "<style>" +
-                "*{box-sizing:border-box;font-family:Arial,sans-serif;}" +
+
+                "*{" +
+                "box-sizing:border-box;" +
+                "font-family:Arial,sans-serif;" +
+                "}" +
 
                 "body{" +
                 "margin:0;" +
